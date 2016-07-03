@@ -1,0 +1,316 @@
+// @require 'require/all.styl'
+@import 'require/all.styl'
+@import 'rupture'
+@import 'nib'
+
+*
+  padding 0
+  margin 0
+
+html
+  font-size 62.5%
+
+body
+  font-family 'latolight', sans-serif
+  color #444
+
+img
+  max-width 100%
+  vertical-align middle
+
+ul
+  margin-left 1.8rem
+  list-style-type square
+
+a
+  outline 0
+  text-decoration none
+  &:hover
+    text-decoration underline
+
+.ml14
+  margin-left 1.4rem
+.skyblue
+  color skyblue
+.mandarine
+  color mandarine
+.red
+  color bloodred
+
+.btn
+  padding .4rem
+  outline 0
+  font 1.7rem 'latoregular', sans-serif
+  transition all .5s
+  cursor pointer
+
+.btn-form
+  border .1rem solid lightnightblue
+  colors(activeBg, lightnightblue)
+  &:hover
+    border .1rem solid lightblue
+    color #fff
+
+.btn-download
+  border .1rem solid mandarine
+  colors(activeBg, mandarine)
+  &:hover
+    border .1rem solid lightmandarine
+    color lightmandarine
+
+.imgs
+  clearfix()
+
+.img
+  width 22rem
+  margin-right .5rem
+  margin-bottom .5rem
+  display inline-block
+  vertical-align top
+  // float left
+  img
+    // width 22rem
+    border .1rem solid lightnightblue
+    // border-radius .5rem
+
+.img-name
+  text-align center
+
+.img-enlarged
+  sizes(100%)
+  display flex
+  justify-content center
+  align-items center
+  background-color activeBg
+  fixed left 0 top 0
+  cursor zoom-out
+  img
+    width auto
+    height 100vh
+
+.img-notenlarged
+  cursor zoom-in
+
+
+/* COMPONENTS */
+
+.wrapper
+  sizes(100%)
+  display flex
+  // fixed top 0 left 0
+  +below(740px)
+    flex-direction column
+
+/* LANDING PAGE */
+.landing
+  sizes(100%)
+  colors(#222, #fff)
+  position absolute
+  top 0
+  left 0
+  display flex
+  justify-content center
+  align-items center
+  a
+    font-size 1.6rem
+    color lightnightblue
+.landing-inner
+  font-family 'corbertregular', sans-serif
+  text-align center
+
+
+/* NAV (LEFT) */
+.nav
+  width 9.4rem
+  height 100vh
+  background-color navLinkBg
+  fixed left 0 top 0
+  display flex
+  flex-direction column
+  +below(740px)
+    min-width 100%
+    min-height 0
+    height 6.8rem
+    flex-direction row
+
+.nav-bottom
+  justify-content flex-end
+
+.nav-top,
+.nav-bottom
+  width 100%
+  flex 1 1 auto
+  display flex
+  flex-direction column
+  a
+    sizes(100%, 4.8rem)
+    color #fff
+    text-decoration none
+    text-align center
+    transition background-color .3s, height .3s
+    overflow-y hidden
+    cursor pointer
+    &:hover
+      background-color navLinkBgHover
+    +below(740px)
+      sizes(8rem, 100%)
+      &:first-of-type
+        width 5rem
+        .navLink
+          width 100%
+    .navLink
+      padding-top 1.2rem
+      transition padding-top .3s
+      +below(740px)
+        padding-top 2rem
+      .octicon
+        color #fff
+        margin-bottom .4rem
+        font-size 2.4rem
+        transition margin-bottom .3s ease
+    .navLink-name
+      color #fff
+      font-size 1.4rem
+      opacity 0
+      transition opacity .45s
+  a.active
+    height 6.8rem
+    &:hover
+      background-color activeBg
+    .navLink
+      +below(740px)
+        padding-top 1.2rem
+      .octicon
+        margin-bottom 0
+      .navLink-name
+        opacity 1
+
+.active
+  colors(activeBg !important, #fff)
+  cursor default
+
+
+/* OTHER PAGES
+   (.content is in web/static/js/components/layouts/MainLayout.jsx)
+*/
+.content
+  min-height 100vh
+  margin-left 9.4rem
+  colors(#222, #fff)
+  font-size 1.6rem
+  // overflow-y auto
+  flex 1 1 calc(100% - 10rem)
+  display flex
+  flex-direction column
+  > div
+    padding 5rem 20% 5rem 6rem
+    +below(740px)
+      padding 6% 10%//2.5rem 10% 2.5rem 10%
+    flex 1 1 auto
+  h1
+    margin-bottom 2rem
+    font-size 3.2rem
+    .octicon
+      margin-right .5rem
+      font-size 3.2rem
+  h3
+    letter-spacing .1rem
+    font-size 1.9rem
+  p
+    margin-bottom 2rem
+    font-size 1.6rem
+  a
+    color mandarine
+
+.content-news
+  h3
+    font-family 'corbertregular', sans-serif
+
+.one
+  border .1rem solid nightblue
+  border-radius .7rem
+  margin-bottom 2rem
+  transition border .5s
+  &:hover
+    border .1rem solid lightnightblue
+
+.one-news
+  padding 4rem 2rem
+
+.one-sequential
+  padding 2rem 2rem
+
+.content-news-date
+  color headerClr
+  font-weight bold
+
+.content-about
+  h3
+    color headerClr
+
+.content-admin
+  form
+    width 60rem
+    fieldset
+      padding 1.2rem 3rem 2rem 2rem
+      border .1rem solid lightnightblue
+      transition border .3s
+      &:hover
+        border .1rem solid lightblue
+        > legend
+          color lightblue
+      legend
+        padding 0 .4rem
+        color lightnightblue
+        transition color .5s
+
+  input[type="text"],
+  input[type="number"],
+  textarea
+    width 100%
+    padding .4rem
+    border .1rem solid lightnightblue
+    colors(activeBg, lightblue)
+    font 1.6rem 'latolight', sans-serif
+    transition border .5s, color .5s
+    &:focus
+      border .1rem solid lightblue
+      color #fff
+  textarea
+    height 8rem
+  button
+    padding .4rem
+    border .1rem solid lightnightblue
+    outline 0
+    colors(activeBg, lightnightblue)
+    font 1.7rem 'latoregular', sans-serif
+    transition all .5s
+    cursor pointer
+    &:hover
+      border .1rem solid lightblue
+      color #fff
+
+.sequentials-list
+  margin-left 1rem
+  list-style-type none
+  li
+    sizes(10rem, 20rem)
+    padding-top 5rem
+    border .2rem solid lightnightblue
+    margin .4rem .2rem
+      text-align center
+      float left
+      a
+        color #ddd
+          text-decoration none
+          &:hover
+            color lightnightblue
+
+
+.sequential-imgs
+  clearfix()
+
+// REUSE-able components
+.form-input,
+.form-textarea
+  margin-bottom .8rem

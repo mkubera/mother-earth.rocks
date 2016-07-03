@@ -11,6 +11,7 @@ defmodule Mother do
       supervisor(Mother.Endpoint, []),
       # Here you could define other workers and supervisors as children
       # worker(Mother.Worker, [arg1, arg2, arg3]),
+      worker(Mother.Database, [[host: "localhost", port: 28015, db: "mother"]])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
@@ -25,4 +26,8 @@ defmodule Mother do
     Mother.Endpoint.config_change(changed, removed)
     :ok
   end
+end
+
+defmodule Mother.Database do
+  use RethinkDB.Connection
 end

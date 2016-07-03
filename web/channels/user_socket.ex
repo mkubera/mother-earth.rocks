@@ -2,7 +2,9 @@ defmodule Mother.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", Mother.RoomChannel
+  channel "news:*", Mother.NewsChannel
+  channel "sequentials:*", Mother.SequentialsChannel
+  channel "admin:*", Mother.AdminChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

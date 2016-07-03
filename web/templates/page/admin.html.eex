@@ -1,0 +1,19 @@
+<h1>Admin</h1>
+
+<h2>Add a new News</h2>
+
+<form>
+  <div>
+    <label for="title">Title</label><br>
+    <input type="text" name="title"><br>
+  </div>
+
+  <div>
+    <label for="text">Text</label><br>
+    <input type="text" name="text"><br>
+  </div>
+
+  <button>Send</button>
+</form>
+
+<!-- <script src="<%= static_path(@conn, "/js/app.js") %>"></script> -->
