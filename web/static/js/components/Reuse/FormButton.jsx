@@ -1,11 +1,16 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 
-const FormButton = (props) => {
+const FormButton = ({onClick, text}) => {
   return (
     <div>
-      <button className="btn btn-form" onClick={props.onClick}>{props.text}</button>
+      <button className="btn btn-form" onClick={onClick}>{text}</button>
     </div>
   )
+}
+
+FormButton.propTypes = {
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 export default FormButton

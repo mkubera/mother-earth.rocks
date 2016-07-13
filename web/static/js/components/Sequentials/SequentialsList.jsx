@@ -1,30 +1,30 @@
-import React from 'react'
-import {SequentialsOne} from 'web/static/js/paths'
+import React, {Component, PropTypes} from 'react'
+import {SequentialsOne} from '../../paths'
 
-const SequentialsList = (props) => {
-  return (
-    <div>
-      {props.sequentials.map(one => {
+export default class SequentialsList extends Component {
+  render() {
+    return (
+      <div>
+      {this.props.sequentials.map((one) => {
         return <SequentialsOne key={one.id} one={one} />
       })}
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
 SequentialsList.propTypes = {
-  sequentials: React.PropTypes.arrayOf(React.PropTypes.shape({
-    img: React.PropTypes.string.isRequired,
-    img2: React.PropTypes.string.isRequired,
-    download: React.PropTypes.string.isRequired,
-    title: React.PropTypes.string.isRequired,
-    description: React.PropTypes.string.isRequired,
-    price: React.PropTypes.number.isRequired,
-    authors: React.PropTypes.shape({
-      writer: React.PropTypes.string.isRequired,
-      artist: React.PropTypes.string.isRequired
+  sequentials: PropTypes.arrayOf(PropTypes.shape({
+    img: PropTypes.string.isRequired,
+    img2: PropTypes.string.isRequired,
+    download: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    authors: PropTypes.shape({
+      writer: PropTypes.string.isRequired,
+      artist: PropTypes.string.isRequired
     }),
-    ts: React.PropTypes.string.isRequired
+    ts: PropTypes.string.isRequired
   }))
 }
-
-export default SequentialsList

@@ -20,5 +20,10 @@ import "phoenix_html"
 
 // import socket from "./socket"
 
-//React.render() the App
+import React from 'react'
+import ReactDOM from 'react-dom'
 import Main from './Main'
+
+document.addEventListener("DOMContentLoaded", () => {
+  ReactDOM.render(<Main />, document.querySelector('#App'))
+})

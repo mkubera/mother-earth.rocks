@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import Contact from './Contact'
-import Donate from './Donate'
-import AboutMd from './AboutMd'
+import Contact from './Contact.jsx'
+import Donate from './Donate.jsx'
+import AboutMd from './AboutMd.js'
 
 const About = (props) => {
   return (

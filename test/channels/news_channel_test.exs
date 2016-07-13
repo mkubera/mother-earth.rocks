@@ -4,13 +4,9 @@ defmodule Mother.NewsChannelTest do
 
   setup do
     {:ok, _, socket} =
-      socket("user_id", %{some: :assign})
-        |> subscribe_and_join(NewsChannel, "news:insert")
+      socket("user_id", %{})
+      |> subscribe_and_join(NewsChannel, "news:all")
 
     {:ok, socket: socket}
-  end
-
-  test "news:insert insert new news", %{socket: socket} do
-    push socket, "new", %{"title" => "Test Title", "text" => "Test Text", "author" => "Test Author"}
   end
 end

@@ -1,46 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
-import {socket, store, store_actions, utils_channel, SequentialsList, Loading} from 'web/static/js/paths'
+import {socket, store, store_actions, utils_channel, SequentialsList, Loading} from '../../paths'
 
 class Sequentials extends React.Component {
-  constructor() {
-    super()
-
-    this.state =
-      { data_loaded: false
-      , img_enlarged: false
-      , img2_enlarged: false
-      }
-
-    this.sequentials_all = socket.channel("sequentials:all", {})
-  }
-
-  componentDidMount() {
-    utils_channel.join_1(this.sequentials_all)
-
-    this.sequentials_all.on("sequentials_all", ({data}) => {
-      store.dispatch(store_actions.getAllSequentials(data))
-    })
-  }
-
-  componentDidUpdate() {
-    if (!this.state.data_loaded)
-      this.setState({data_loaded: true})
-  }
-
-  componentWillUnmount() {
-    utils_channel.leave_1(this.sequentials_all)
-  }
-
   render() {
-    const data_loaded = this.state.data_loaded;
+    const data_loaded = this.props.sequentials_ready;
     var seqHtml;
 
     if (data_loaded) {
-      const no_sequentials_just_yet = store.getState().sequentials.length === 0
+      const no_sequentials = this.props.sequentials.length === 0
 
-      seqHtml = no_sequentials_just_yet
+      seqHtml = no_sequentials
         ? (<p>No Sequentials just yet... <br/><br/> See what the <Link to="/future">Future</Link> holds.</p>)
         : <SequentialsList sequentials={this.props.sequentials} />
     } else {
@@ -62,7 +33,10 @@ class Sequentials extends React.Component {
 }
 
 const mapStateToProps = (store) => {
-  return { sequentials: store.sequentials }
+  return {
+    sequentials: store.sequentials,
+    sequentials_ready: store.sequentials_ready
+  }
 }
 
 export default connect(mapStateToProps)(Sequentials)

@@ -2,39 +2,37 @@
 import socket from './socket'
 import store from './store/store'
 import * as store_actions from './store/actions'
-import * as utils_date from './utils/date'
 import * as utils_channel from './utils/channel'
 //components
-import AppRouter from './AppRouter'
-import MainLayout from './components/layouts/MainLayout'
-import Landing from './components/Landing'
-import Home from './components/Home'
-import News from './components/News/News'
-import NewsList from './components/News/NewsList'
-import NewsOne from './components/News/NewsOne'
-import Sequentials from './components/Sequentials/Sequentials'
-import SequentialsList from './components/Sequentials/SequentialsList'
-import SequentialsOne from './components/Sequentials/SequentialsOne'
-import SequentialsOneImg from './components/Sequentials/SequentialsOneImg'
-import Future from './components/Future/Future'
-import About from './components/About/About'
-import Admin from './components/Admin/Admin'
-import Footer from './components/Footer/Footer'
-import AdminAddNewsForm from './components/Admin/AdminAddNewsForm'
-import AdminInitdb from './components/Admin/AdminInitdb'
-import AdminAddSequentialForm from './components/Admin/AdminAddSequentialForm'
-import NotFound from './components/NotFound'
+import AppRouter from './AppRouter.jsx'
+import MainLayout from './components/layouts/MainLayout.jsx'
+import Landing from './components/Landing.jsx'
+import Home from './components/Home.jsx'
+import News from './components/News/News.jsx'
+import NewsList from './components/News/NewsList.jsx'
+import NewsOne from './components/News/NewsOne.jsx'
+import Sequentials from './components/Sequentials/Sequentials.jsx'
+import SequentialsList from './components/Sequentials/SequentialsList.jsx'
+import SequentialsOne from './components/Sequentials/SequentialsOne.jsx'
+import SequentialsOneImg from './components/Sequentials/SequentialsOneImg.jsx'
+import Future from './components/Future/Future.jsx'
+import About from './components/About/About.jsx'
+import Admin from './components/Admin/Admin.jsx'
+import Footer from './components/Footer/Footer.jsx'
+import AdminAddNewsForm from './components/Admin/AdminAddNewsForm.jsx'
+import AdminInitdb from './components/Admin/AdminInitdb.jsx'
+import AdminAddSequentialForm from './components/Admin/AdminAddSequentialForm.jsx'
+import NotFound from './components/NotFound.jsx'
 //components:reusables
-import FormButton from './components/Reuse/FormButton'
-import FormInput from './components/Reuse/FormInput'
-import FormTextarea from './components/Reuse/FormTextarea'
-import Loading from './components/Reuse/Loading'
+import FormButton from './components/Reuse/FormButton.jsx'
+import FormInput from './components/Reuse/FormInput.jsx'
+import FormTextarea from './components/Reuse/FormTextarea.jsx'
+import Loading from './components/Reuse/Loading.jsx'
 
 export
   { socket
   , store
   , store_actions
-  , utils_date
   , utils_channel
   , AppRouter
   , MainLayout

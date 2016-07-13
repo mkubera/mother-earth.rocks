@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 
-export default class SequentialsOneImg extends React.Component {
+export default class SequentialsOneImg extends Component {
   constructor(props) {
     super()
 
@@ -33,16 +33,8 @@ export default class SequentialsOneImg extends React.Component {
   }
 }
 
-// const SequentialsOneImg = ({onClickImg, onClickImg2, img_enlarged, img2_enlarged, img, title}) => {
-//   const imgClass = img_enlarged
-//     ? "img img-enlarged"
-//     : "img img-notenlarged"
-//
-//   return (
-//     <div className={imgClass} onClick={onClickImg}>
-//       <img src={`images/${img}`} alt={`cover: ${title}`} />
-//     </div>
-//   )
-// }
-//
-// export default SequentialsOneImg
+SequentialsOneImg.propTypes = {
+  name: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
+}

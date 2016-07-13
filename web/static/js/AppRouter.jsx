@@ -1,6 +1,6 @@
 import React from 'react'
 import {Provider} from 'react-redux'
-import {store, MainLayout, Landing, Home, News, Sequentials, Future, About, Admin, Footer, NotFound} from 'web/static/js/paths'
+import {store, MainLayout, Landing, Home, News, Sequentials, Future, About, Admin, Footer, NotFound} from './paths'
 import {Router, Route, Redirect, browserHistory} from 'react-router'
 
 export default class AppRouter extends React.Component {
@@ -18,7 +18,6 @@ export default class AppRouter extends React.Component {
             <Route path="/future" component={Future} />
             <Route path="/about" component={About} />
             <Route path="/admin" component={Admin} />
-            <Route path="/footer" component={Footer} />
 
             <Redirect from="/home" to="/news" />
             <Route path="*" component={NotFound} />

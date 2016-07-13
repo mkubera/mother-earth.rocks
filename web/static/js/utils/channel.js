@@ -1,41 +1,5 @@
-import {socket} from 'web/static/js/paths'
-
-
-/**
- * Join a channel. On successful join, leave the channel.
- * Used to initiate some action on the server side (e.g. create db tables)
- *
- * @param object channel
- * @return console.log with either OK or ERROR (from either join() or leave())
- */
-const joinAndLeave_1 = (channel) => {
-  if (!_.isObject(channel))
-    return console.log(`fn utils_channel.joinAndLeave_1 expects an object but got ${typeof channel} instead.`)
-
-  //channel's topic name (e.g. "admin:db_init")
-  const {topic} = channel;
-
-  //join
-  return channel.join()
-    .receive("ok", ({msg}) => {
-      console.log(`${topic} join() OK`)
-      alert(msg)
-
-      //AndLeave
-      channel.leave()
-        .receive("ok", ({msg}) => {
-          console.log(`${topic} leave() OK`)
-        })
-        .receive("error", ({msg}) => {
-          console.log(`${topic} leave() ERROR`)
-        })
-    })
-    .receive("error", ({msg}) => {
-      console.log(`${topic} join() ERROR`)
-      alert(msg);
-    })
-}
-
+import _ from 'lodash'
+import {socket} from '../paths'
 
 /**
  * Join a channel.
@@ -44,6 +8,7 @@ const joinAndLeave_1 = (channel) => {
  * @return console.log (either OK or ERROR)
  */
 const join_1 = (channel) => {
+  if (!_.isObject(channel)) return console.log("join_1() - passed param should be an object.");
   //topic name
   const {topic} = channel
   //join
@@ -61,6 +26,8 @@ const join_1 = (channel) => {
  * @return channel.join()
  */
 const join_3 = (channel, ok_fn, error_fn) => {
+  if (!_.isObject(channel)) return console.log("join_3() - first passed param should be an object.");
+  if (!_.isFunction(ok_fn) || !_.isFunction(error_fn)) return console.log("join_3() - second and third passed params should be functions.");
   //join
   return channel.join()
     .receive("ok", ok_fn)
@@ -75,6 +42,7 @@ const join_3 = (channel, ok_fn, error_fn) => {
  * @return console.log (either OK or ERROR)
  */
 const leave_1 = (channel) => {
+  if (!_.isObject(channel)) return console.log("leave_1() - passed param should be an object.");
   //topic name
   const {topic} = channel
   //join
@@ -93,10 +61,13 @@ const leave_1 = (channel) => {
  * @return channel.leave()
  */
 const leave_3 = (channel, ok_fn, error_fn) => {
+  if (!_.isObject(channel)) return console.log("leave_3() - first passed param should be an object.");
+  if (!_.isFunction(ok_fn) || !_.isFunction(error_fn)) return console.log("leave_3() - second and third passed params should be functions.");
+
   //leave
   return channel.leave()
     .receive("ok", ok_fn)
     .receive("error", error_fn)
 }
 
-export { joinAndLeave_1, join_1, join_3, leave_1, leave_3 }
+export {join_1, join_3, leave_1, leave_3}

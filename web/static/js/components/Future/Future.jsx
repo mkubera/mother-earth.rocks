@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import FutureMd from './FutureMd'
+import FutureMd from './FutureMd.js'
 
 const Future = () => {
   return (

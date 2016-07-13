@@ -1,26 +1,31 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 import ReactMarkdown from 'react-markdown'
-import {utils_date} from 'web/static/js/paths'
+import moment from 'moment'
+import _ from 'lodash'
 
-const NewsOne = (props) => {
-  return (
-    <div className="one one-news">
-      <h3>{props.one.title}</h3>
-      <p>
-        <small className="content-news-date">{utils_date.basicDate(props.one.ts)}</small><br/>
-        <small><i>by {props.one.author}</i></small>
-      </p>
-      <ReactMarkdown source={props.one.text} />
-    </div>
-  )
+export default class NewsOne extends Component {
+  render() {
+    const formatted_timestamp = moment(this.props.one.ts).format("D MMMM YYYY")
+
+    return (
+      <div className="one one-news">
+        <small className="content-news-date">{_.toUpper(formatted_timestamp)}</small><br/>
+        <h3>{this.props.one.title}</h3>
+        <p>
+          <small><i>by {this.props.one.author}</i></small>
+        </p>
+        <div className="content-news-text">
+          <ReactMarkdown source={this.props.one.text} />
+        </div>
+      </div>
+    )
+  }
 }
 
 NewsOne.propTypes = {
-  one: React.PropTypes.shape({
-    title: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired,
-    ts: React.PropTypes.string.isRequired
+  one: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    ts: PropTypes.string.isRequired
   })
 }
-
-export default NewsOne

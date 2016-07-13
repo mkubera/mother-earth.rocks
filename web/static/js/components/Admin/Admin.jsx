@@ -1,10 +1,11 @@
 import React from 'react'
 import _ from 'lodash'
-import {socket, utils_channel, AdminAddNewsForm, AdminAddSequentialForm, AdminInitdb} from 'web/static/js/paths'
+import {socket, utils_channel, AdminAddNewsForm, AdminAddSequentialForm, AdminInitdb} from '../../paths.js'
 
 export default class Admin extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
+
     this.state =
       { new_news:
         { title: ""
@@ -32,28 +33,16 @@ export default class Admin extends React.Component {
     this.submitFormNewNews = this.submitFormNewNews.bind(this)
     this.submitFormNewSequential = this.submitFormNewSequential.bind(this)
 
-    this.db_init = socket.channel("admin:db_init", {})
-    this.news_insert = socket.channel("news:insert", {})
-    this.sequentials_insert = socket.channel("sequentials:insert", {})
+    this.admin = socket.channel("admin:all", {})
   }
 
 
   componentDidMount() {
-    utils_channel.join_1(this.news_insert)
-    utils_channel.join_1(this.sequentials_insert)
+    utils_channel.join_1(this.admin)
   }
 
   componentWillUnmount() {
-    utils_channel.leave_1(this.news_insert)
-    utils_channel.leave_1(this.sequentials_insert)
-  }
-
-
-  initDb() {
-    // 1. Join Phoenix channel ("admin:db_init")
-    // 2. If don't exist already, Phoenix will create "mother" db + 2 tables ("news", "sequentials")
-    // 3. Leave the channel.
-    utils_channel.joinAndLeave_1(this.db_init)
+    utils_channel.leave_1(this.admin)
   }
 
   onChangeNewNews(e) {
@@ -115,27 +104,65 @@ export default class Admin extends React.Component {
     })
   }
 
+  validateNewsForm() {
+    const news = this.state.new_news
+    const values = _.values(news)
+    const has_empty_strings = _.indexOf(values, "") > -1;
+
+    if (has_empty_strings)
+      return alert("Fill in all the fields, please.")
+  }
+
+  validateSequentialForm() {
+    const seq = this.state.new_sequential
+    const strings_values1 = _.values(_.pickBy(seq, _.isString))
+    const strings_values2 = _.values(seq.authors)
+    const strings = [...strings_values1, ...strings_values2]
+    const has_empty_strings = _.indexOf(strings, "") > -1
+    const has_zero_pages = seq.pages === 0
+
+    if (has_empty_strings || has_zero_pages)
+      return alert("Fill in all the fields, please.")
+  }
+
+  resetNewsForm() {
+    this.setState({ new_news: {title: "", text: "", author: ""} })
+  }
+
+  resetSequentialForm() {
+    this.setState({ new_sequential: {
+      img:"", title:"", description:"", pages:0, price:0, authors: {writer:"", artist:""}
+    } })
+  }
+
+  initDb() {
+    this.admin.push("createDbAndTables", {})
+      .receive("ok", ({msg}) => alert(msg))
+      .receive("error", ({msg}) => alert(msg))
+  }
+
   submitFormNewNews(e) {
     e.preventDefault()
 
-    this.news_insert.push("new", { ...this.state.new_news })
-      .receive("ok", () => {
-        this.setState({ new_news: {title: "", text: "", author: ""} })
-        alert("News added successfully.")
+    this.validateNewsForm()
+
+    this.admin.push("insertNews", { ...this.state.new_news })
+      .receive("ok", ({msg}) => {
+        this.resetNewsForm()
+        alert(msg)
       })
       .receive("error", () => alert("Form Error... :/"))
   }
 
   submitFormNewSequential(e) {
     e.preventDefault()
-    console.log(this.state);
 
-    this.sequentials_insert.push("new", {
-      data: {...this.state.new_sequential}
-    })
-      .receive("ok", () => {
-        this.setState({ new_sequential: {img:"", title:"", description:"", pages:0, price:0, authors: {writer:"", artist:""}} })
-        alert("Sequential added successfully.")
+    this.validateSequentialForm()
+
+    this.admin.push("insertSequential", { ...this.state.new_sequential })
+      .receive("ok", ({msg}) => {
+        this.resetSequentialForm()
+        alert(msg)
       })
       .receive("error", () => alert("Form Error... :/"))
   }
@@ -152,10 +179,16 @@ export default class Admin extends React.Component {
         <AdminInitdb initDb={this.initDb} />
         <br/>
 
-        <AdminAddNewsForm state={this.state.new_news} onChange={this.onChangeNewNews} submitForm={this.submitFormNewNews} />
+        <AdminAddNewsForm
+          state={this.state.new_news}
+          onChange={this.onChangeNewNews}
+          submitForm={this.submitFormNewNews} />
         <br/>
 
-        <AdminAddSequentialForm state={this.state.new_sequential} onChange={this.onChangeNewSequential} submitForm={this.submitFormNewSequential} />
+        <AdminAddSequentialForm
+          state={this.state.new_sequential}
+          onChange={this.onChangeNewSequential}
+          submitForm={this.submitFormNewSequential} />
       </div>
     )
   }

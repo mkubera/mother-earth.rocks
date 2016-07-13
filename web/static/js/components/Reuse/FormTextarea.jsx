@@ -1,19 +1,24 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 import _ from 'lodash'
 
-const FormTextarea = (props) => {
-  return (
-    <div className="form-textarea">
-      <label htmlFor={props.name}>
-        {_.capitalize(props.name)}&nbsp;
-        <small><i>{props.note ? `(${props.note})` : ""}</i></small>
-      </label><br/>
-      <textarea name={props.name} value={props.value} onChange={props.onChange} /><br />
-    </div>
-  )
+export default class FormTextarea extends Component {
+  render() {
+    const {name, note, value, onChange} = this.props
+
+    return (
+      <div className="form-textarea">
+        <label htmlFor={name}>
+          {_.capitalize(name)} <small><i>{note ? `(${note})` : ""}</i></small>
+        </label><br/>
+        <textarea name={name} value={value} onChange={onChange} /><br />
+      </div>
+    )
+  }
 }
 
-//proptypes
-// props.note is OPTIONAL
-
-export default FormTextarea
+FormTextarea.propTypes = {
+  name: PropTypes.string.isRequired,
+  note: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+}

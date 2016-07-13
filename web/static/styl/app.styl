@@ -1,4 +1,3 @@
-// @require 'require/all.styl'
 @import 'require/all.styl'
 @import 'rupture'
 @import 'nib'
@@ -37,6 +36,8 @@ a
 .red
   color bloodred
 
+
+// BOOTSTRAP-STYLE CLASSES
 .btn
   padding .4rem
   outline 0
@@ -45,15 +46,15 @@ a
   cursor pointer
 
 .btn-form
-  border .1rem solid lightnightblue
-  colors(activeBg, lightnightblue)
+  border .1rem solid adminFormClrAll
+  colors(activeBg, adminFormClrAll)
   &:hover
-    border .1rem solid lightblue
+    border .1rem solid adminFormClrAllHover
     color #fff
 
 .btn-download
   border .1rem solid mandarine
-  colors(activeBg, mandarine)
+  colors(inherit, mandarine)
   &:hover
     border .1rem solid lightmandarine
     color lightmandarine
@@ -63,15 +64,12 @@ a
 
 .img
   width 22rem
-  margin-right .5rem
-  margin-bottom .5rem
+  margin-right 1.5rem
+  margin-bottom 1.5rem
   display inline-block
   vertical-align top
-  // float left
   img
-    // width 22rem
-    border .1rem solid lightnightblue
-    // border-radius .5rem
+    border .4rem solid imgBorder
 
 .img-name
   text-align center
@@ -97,8 +95,7 @@ a
 .wrapper
   sizes(100%)
   display flex
-  // fixed top 0 left 0
-  +below(740px)
+  +below(800px)
     flex-direction column
 
 /* LANDING PAGE */
@@ -113,21 +110,26 @@ a
   align-items center
   a
     font-size 1.6rem
-    color lightnightblue
+    color soulgreen //headerClr //lightnightblue
+    &:hover
+      text-decoration none
 .landing-inner
   font-family 'corbertregular', sans-serif
   text-align center
 
 
-/* NAV (LEFT) */
+/* NAV
+   (left or top [when below 800px])
+*/
 .nav
   width 9.4rem
   height 100vh
   background-color navLinkBg
   fixed left 0 top 0
+  z-index 100
   display flex
   flex-direction column
-  +below(740px)
+  +below(800px)
     min-width 100%
     min-height 0
     height 6.8rem
@@ -142,7 +144,10 @@ a
   flex 1 1 auto
   display flex
   flex-direction column
-  a
+  +below(800px)
+    flex-direction row
+  a,
+  .a
     sizes(100%, 4.8rem)
     color #fff
     text-decoration none
@@ -152,7 +157,7 @@ a
     cursor pointer
     &:hover
       background-color navLinkBgHover
-    +below(740px)
+    +below(800px)
       sizes(8rem, 100%)
       &:first-of-type
         width 5rem
@@ -161,24 +166,21 @@ a
     .navLink
       padding-top 1.2rem
       transition padding-top .3s
-      +below(740px)
+      +below(800px)
         padding-top 2rem
       .octicon
-        color #fff
         margin-bottom .4rem
         font-size 2.4rem
-        transition margin-bottom .3s ease
+        transition margin-bottom .3s ease, transform .1s linear
     .navLink-name
-      color #fff
       font-size 1.4rem
       opacity 0
       transition opacity .45s
   a.active
     height 6.8rem
-    &:hover
-      background-color activeBg
+    background-color navLinkActiveBg
     .navLink
-      +below(740px)
+      +below(800px)
         padding-top 1.2rem
       .octicon
         margin-bottom 0
@@ -186,9 +188,13 @@ a
         opacity 1
 
 .active
-  colors(activeBg !important, #fff)
+  colors(activeBg, #fff)
   cursor default
-
+.a-active
+  background-color navLinkBgHover
+  .navLink
+    .octicon
+      transform rotate(45deg)
 
 /* OTHER PAGES
    (.content is in web/static/js/components/layouts/MainLayout.jsx)
@@ -198,15 +204,17 @@ a
   margin-left 9.4rem
   colors(#222, #fff)
   font-size 1.6rem
-  // overflow-y auto
   flex 1 1 calc(100% - 10rem)
   display flex
   flex-direction column
+  +below(800px)
+    margin-top 6.8rem
+    margin-left 0
   > div
     padding 5rem 20% 5rem 6rem
-    +below(740px)
-      padding 6% 10%//2.5rem 10% 2.5rem 10%
     flex 1 1 auto
+    +below(800px)
+      padding 5rem 10% 5rem 10%
   h1
     margin-bottom 2rem
     font-size 3.2rem
@@ -227,18 +235,14 @@ a
     font-family 'corbertregular', sans-serif
 
 .one
-  border .1rem solid nightblue
-  border-radius .7rem
   margin-bottom 2rem
   transition border .5s
-  &:hover
-    border .1rem solid lightnightblue
 
 .one-news
-  padding 4rem 2rem
+  padding 0 2rem 4rem 0
 
 .one-sequential
-  padding 2rem 2rem
+  padding 0 2rem 2rem 0
 
 .content-news-date
   color headerClr
@@ -247,21 +251,21 @@ a
 .content-about
   h3
     color headerClr
-
+    
 .content-admin
   form
-    width 60rem
+    max-width 60rem
     fieldset
       padding 1.2rem 3rem 2rem 2rem
-      border .1rem solid lightnightblue
+      border .1rem solid adminFormClrAll
       transition border .3s
       &:hover
-        border .1rem solid lightblue
+        border .1rem solid adminFormClrAllHover
         > legend
-          color lightblue
+          color adminFormClrAllHover
       legend
         padding 0 .4rem
-        color lightnightblue
+        color adminFormClrAll
         transition color .5s
 
   input[type="text"],
@@ -269,25 +273,25 @@ a
   textarea
     width 100%
     padding .4rem
-    border .1rem solid lightnightblue
-    colors(activeBg, lightblue)
+    border .1rem solid adminFormClrAll
+    colors(activeBg, adminFormClrAllHover)
     font 1.6rem 'latolight', sans-serif
     transition border .5s, color .5s
     &:focus
-      border .1rem solid lightblue
+      border .1rem solid adminFormClrAllHover
       color #fff
   textarea
     height 8rem
   button
     padding .4rem
-    border .1rem solid lightnightblue
+    border .1rem solid adminFormClrAll
     outline 0
-    colors(activeBg, lightnightblue)
+    colors(activeBg, adminFormClrAll)
     font 1.7rem 'latoregular', sans-serif
     transition all .5s
     cursor pointer
     &:hover
-      border .1rem solid lightblue
+      border .1rem solid adminFormClrAllHover
       color #fff
 
 .sequentials-list
@@ -306,9 +310,34 @@ a
           &:hover
             color lightnightblue
 
-
 .sequential-imgs
   clearfix()
+
+
+// FOOTER
+.footer
+  width calc(100% - 9.4rem)
+  colors(navLinkBgHover, #fff)
+  fixed bottom 0 left 9.4rem
+  z-index 90
+  transition all .5s
+  +below(800px)
+    width 100%
+    left 0rem
+    
+  a
+    color lightsoulgreen //mandarine
+  .footer-flex
+    padding 4rem
+    display flex
+    justify-content center
+    > div
+      flex 1 1 auto
+      font-size 1.4rem
+      text-align center
+.footer-hidden
+  left -100%
+
 
 // REUSE-able components
 .form-input,

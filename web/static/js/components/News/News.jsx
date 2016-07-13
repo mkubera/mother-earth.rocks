@@ -1,47 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {socket, store, store_actions, utils_channel, NewsList, Loading} from 'web/static/js/paths'
+import {socket, store, store_actions, utils_channel, NewsList, Loading} from '../../paths'
 
 class News extends React.Component {
-  constructor() {
-    super()
-
-    this.state =
-      { data_loaded: false
-      }
-
-    this.news_all = socket.channel("news:all", {})
-  }
-
-  componentDidMount() {
-    utils_channel.join_1(this.news_all)
-
-    this.news_all.on("news_all", ({data}) => {
-      store.dispatch(store_actions.getAllNews(data))
-      // store.dispatch({
-      //   type: "ALL_NEWS",
-      //   news: data
-      // })
-    })
-  }
-
-  componentDidUpdate() {
-    if (!this.state.data_loaded)
-      this.setState({data_loaded: true})
-  }
-
-  componentWillUnmount() {
-    utils_channel.leave_1(this.news_all)
-  }
-
   render() {
-    const data_loaded = this.state.data_loaded;
+    const data_loaded = this.props.news_ready;
     var newsHtml;
 
     if (data_loaded) {
-      const no_news_just_yet = store.getState().news.length === 0
+      const no_news = this.props.news.length === 0
 
-      newsHtml = no_news_just_yet
+      newsHtml = no_news
         ? (<p>No news just yet...</p>)
         : <NewsList news={this.props.news} />
     } else {
@@ -54,9 +23,10 @@ class News extends React.Component {
           <span className="octicon octicon-bell"></span>
           News
         </h1>
-        <br />
 
-        {newsHtml}
+        <div id="newsHtml">
+          {newsHtml}
+        </div>
       </div>
     )
   }
@@ -64,7 +34,8 @@ class News extends React.Component {
 
 const mapStateToProps = (store) => {
   return {
-    news: store.news  //pass 'store.news' to 'this.props.news'
+    news: store.news,  //pass 'store.news' to 'this.props.news'
+    news_ready: store.news_ready
   }
 }
 

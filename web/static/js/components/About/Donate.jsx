@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Donate = (props) => {
+const Donate = () => {
   return (
     <div>
     <h1>

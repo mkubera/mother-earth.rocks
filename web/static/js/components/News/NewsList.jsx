@@ -1,22 +1,22 @@
-import React from 'react'
-import NewsOne from './NewsOne'
+import React, {Component, PropTypes} from 'react'
+import NewsOne from './NewsOne.jsx'
 
-const NewsList = (props) => {
-  return (
-    <div>
-      {props.news.map(function (one) {
+export default class NewsList extends Component {
+  render() {
+    return (
+      <div>
+      {this.props.news.map((one) => {
         return <NewsOne key={one.id} one={one} />
       })}
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
 NewsList.propTypes = {
-  news: React.PropTypes.arrayOf(React.PropTypes.shape({
-    title: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired,
-    ts: React.PropTypes.string.isRequired
+  news: PropTypes.arrayOf(React.PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    ts: PropTypes.string.isRequired
   }))
 }
-
-export default NewsList

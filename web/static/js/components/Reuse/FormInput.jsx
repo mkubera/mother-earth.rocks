@@ -1,30 +1,32 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 import _ from 'lodash'
 
-const FormInput = (props) => {
-  var input;
+export default class FormInput extends Component {
+  render() {
+    const {name, type, value, note, onChange} = this.props
 
-  if (props.type === "text") {
-    input = (
-      <input name={props.name} type={props.type} value={props.value}  onChange={props.onChange} /> )
-  } else {
-    input = (
-      <input name={props.name} type={props.type} min="0" max="100" maxlength="6" step="1" value={props.value} onChange={props.onChange} /> )
+    const input = type === "text"
+      ? ( <input name={name} type={type} value={value} onChange={onChange} /> )
+      : ( <input name={name} type={type} min="0" max="100" maxLength="6" step="1" value={value} onChange={onChange} /> )
+
+    return (
+      <div className="form-input">
+        <label htmlFor={name}>
+          {_.capitalize(name)} <small><i>{note ? `(${note})` : ""}</i></small>
+        </label><br/>
+        {input}<br />
+      </div>
+    )
   }
-
-  return (
-    <div className="form-input">
-      <label htmlFor={props.name}>
-      {_.capitalize(props.name)}&nbsp;
-      <small><i>{props.note ? `(${props.note})` : ""}</i></small>
-      </label><br/>
-      {input}<br />
-    </div>
-  )
 }
 
-//proptypes
-// props.note is OPTIONAL
-// props.defaultValue is OPTIONAL
-
-export default FormInput
+FormInput.propTypes = {
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  note: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+}

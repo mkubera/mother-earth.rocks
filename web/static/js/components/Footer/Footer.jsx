@@ -11,26 +11,23 @@ export default class Footer extends React.Component {
 
   render () {
     return (
-      <div>
-        <h1>
-          <span className="octicon octicon-plus"></span>
-          Footer
-        </h1>
-        <br/>
+      <div className="footer-flex">
+        <div>
+          <h2>Twitter</h2>
+          <a href="https://twitter/rainteller" target="_blank"><b>@rainteller</b></a> <br/>
+        </div>
 
-        <h2>Twitter</h2>
-        <a href="https://twitter/rainteller" target="_blank"><b>@rainteller</b></a> <br/>
-        <br/>
-
-        <h2>Friends</h2>
-        {this.friends.map((f) => {
-          return (
-            <div>
-              <a key={f[1]} href={f[0]} target="_blank"><b>{f[1]}</b></a>
-              <br/>
-            </div>
-          )
-        })}
+        <div>
+          <h2>Friends</h2>
+          {this.friends.map((f) => {
+            return (
+              <div key={f[1]}>
+                <a href={f[0]} target="_blank"><b>{f[1]}</b></a>
+                <br/>
+              </div>
+            )
+          })}
+        </div>
       </div>
     )
   }
